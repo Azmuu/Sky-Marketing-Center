@@ -49,21 +49,10 @@ const Services = () => {
   ];
 
   return (
-    <div className="bg-white text-black min-h-screen font-sans overflow-x-hidden">
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="flex justify-between items-center px-6 md:px-12 py-6 max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100"
-      >
-
-        
-      </motion.nav>
-
+    <div className="bg-white text-gray-900 min-h-screen font-sans overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-16 md:pb-20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-yellow-200/40 blur-[120px] rounded-full -z-10"></div>
+      <section id="services" className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-16 md:pb-20 scroll-mt-24">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-yellow-200/30 blur-[120px] rounded-full -z-10"></div>
 
         <motion.div
           initial={{ opacity: 0, y: 26 }}
@@ -71,16 +60,16 @@ const Services = () => {
           transition={{ duration: 0.7 }}
           className="max-w-3xl"
         >
-          <span className="inline-block text-yellow-600 bg-yellow-100 border border-yellow-200 text-[11px] px-4 py-2 rounded-full uppercase tracking-[0.25em] font-bold mb-6">
+          <span className="inline-block text-yellow-700 bg-yellow-50 border border-yellow-200 text-[11px] px-4 py-2 rounded-full uppercase tracking-[0.25em] font-semibold mb-6">
             Our Services
           </span>
 
-          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight">
+          <h1 className="text-3xl md:text-5xl font-bold mb-5 leading-[1.1] tracking-tight text-gray-900">
             Our Strategic{" "}
-            <span className="text-yellow-500">Services</span>
+            <span className="text-yellow-600">Services</span>
           </h1>
 
-          <p className="text-gray-600 max-w-2xl text-lg md:text-xl leading-relaxed">
+          <p className="text-gray-600 max-w-2xl text-base md:text-lg leading-relaxed">
             Elevate your brand with data-driven marketing solutions tailored for
             visibility, engagement, and long-term business growth.
           </p>
@@ -89,7 +78,6 @@ const Services = () => {
 
       {/* Services Grid */}
       <motion.section
-        id="services"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -104,11 +92,11 @@ const Services = () => {
               whileHover={{ y: -8 }}
               className="bg-gray-50 p-8 rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-6 text-yellow-500">
+              <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center mb-6 text-yellow-600">
                 <div className="w-5 h-5 border-2 border-current rounded-sm"></div>
               </div>
 
-              <h3 className="text-xl md:text-2xl font-bold mb-4 tracking-tight">
+              <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">
                 {service.title}
               </h3>
 
@@ -118,8 +106,8 @@ const Services = () => {
 
               <motion.a
                 whileHover={{ x: 4 }}
-                href="#"
-                className="text-yellow-500 text-xs font-bold flex items-center gap-2 uppercase tracking-wide"
+                href="#contact"
+                className="text-yellow-600 text-xs font-semibold flex items-center gap-2 uppercase tracking-wide"
               >
                 Learn More <span>→</span>
               </motion.a>
@@ -132,18 +120,18 @@ const Services = () => {
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-20">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
           <div className="max-w-xl">
-            <span className="text-yellow-500 uppercase text-xs tracking-[0.4em] font-black">
+            <span className="text-yellow-600 uppercase text-xs tracking-[0.4em] font-semibold">
               What We Offer
             </span>
 
-            <h2 className="text-4xl md:text-5xl font-bold mt-6 leading-[1.2]">
+            <h2 className="text-2xl md:text-3xl font-bold mt-6 leading-[1.2]">
               Strategic solutions tailored for your business growth.
             </h2>
           </div>
 
           <a
-            href="#"
-            className="text-yellow-500 text-sm font-black flex items-center gap-3 group border-b border-yellow-300 pb-2"
+            href="#contact"
+            className="text-yellow-600 text-sm font-semibold flex items-center gap-3 group border-b border-yellow-300 pb-2"
           >
             EXPLORE ALL SERVICES
             <span className="group-hover:translate-x-2 transition-transform">
@@ -169,13 +157,13 @@ const Services = () => {
           ].map((service, i) => (
             <div
               key={i}
-              className="bg-gray-50 p-10 border border-gray-200 rounded-2xl hover:bg-gray-100 hover:border-yellow-400 transition-all duration-500 group"
+              className="bg-gray-50 p-10 border border-gray-200 rounded-2xl hover:bg-gray-100 hover:border-yellow-400 transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+              <div className="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center mb-8 group-hover:bg-yellow-500 group-hover:text-white transition-colors">
                 <div className="w-5 h-5 border-2 border-current"></div>
               </div>
 
-              <h3 className="text-2xl font-bold mb-5 tracking-tight">
+              <h3 className="text-xl font-bold mb-4 tracking-tight">
                 {service.title}
               </h3>
 
@@ -183,7 +171,7 @@ const Services = () => {
                 {service.desc}
               </p>
 
-              <div className="w-12 h-1 bg-yellow-300 rounded-full group-hover:w-full group-hover:bg-yellow-400 transition-all duration-500"></div>
+              <div className="w-12 h-1 bg-yellow-300 rounded-full group-hover:w-full group-hover:bg-yellow-500 transition-all duration-300"></div>
             </div>
           ))}
         </div>
@@ -197,24 +185,24 @@ const Services = () => {
         viewport={{ once: true }}
         className="max-w-7xl mx-auto px-6 md:px-12 pb-28 pt-10"
       >
-        <div className="bg-yellow-400 rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm">
+        <div className="bg-yellow-500 rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm">
           <div className="max-w-xl text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-black mb-4 text-black">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
               Ready to transform your business?
             </h2>
-            <p className="text-black/70 text-sm md:text-base leading-relaxed">
+            <p className="text-gray-900/70 text-sm md:text-base leading-relaxed">
               Contact our experts today for a free strategy consultation and
               discover the right solution for your brand.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <button className="bg-black text-white px-8 py-3 rounded-xl font-bold hover:bg-zinc-800 transition">
+            <a href="#contact" className="inline-flex justify-center bg-gray-900 text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-colors">
               Work With Us
-            </button>
-            <button className="border border-black/20 text-black px-8 py-3 rounded-xl font-bold hover:bg-black/5 transition">
+            </a>
+            <a href="#portfolio" className="inline-flex justify-center border border-gray-900/20 text-gray-900 px-8 py-3 rounded-xl font-semibold hover:bg-gray-900/5 transition-colors">
               Portfolio
-            </button>
+            </a>
           </div>
         </div>
       </motion.section>

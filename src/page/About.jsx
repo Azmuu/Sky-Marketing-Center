@@ -19,33 +19,6 @@ const About = () => {
     },
   };
 
-  const timelineData = [
-    {
-      year: "2018",
-      title: "The Foundation",
-      desc: "Sky Marketing Center was founded in a small studio with 3 people and 1 big dream.",
-      side: "left",
-    },
-    {
-      year: "2020",
-      title: "Digital Pivot",
-      desc: "Expanded our services to include comprehensive performance marketing during the global shift.",
-      side: "right",
-    },
-    {
-      year: "2022",
-      title: "Award-Winning Agency",
-      desc: "Recognized as the Digital Innovator of the Year after serving over 500+ global brands.",
-      side: "left",
-    },
-    {
-      year: "2024",
-      title: "The Future",
-      desc: "Opening our third international office and launching our proprietary AI marketing engine.",
-      side: "right",
-    },
-  ];
-
   const team = [
     {
       name: "Sarah Jenkins",
@@ -70,25 +43,25 @@ const About = () => {
   ];
 
   return (
-    <div className="bg-white text-black min-h-screen font-sans selection:bg-yellow-400 selection:text-black overflow-x-hidden">
+    <div className="bg-white text-gray-900 min-h-screen font-sans selection:bg-yellow-200 selection:text-gray-900 overflow-x-hidden">
       {/* Navbar */}
 
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-20 grid md:grid-cols-2 gap-12 items-center relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-yellow-200/40 blur-[120px] rounded-full -z-10"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-yellow-100/50 blur-[120px] rounded-full -z-10"></div>
 
         <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          <span className="bg-yellow-100 text-yellow-600 text-[10px] font-black px-3 py-1 rounded uppercase tracking-[0.2em] border border-yellow-200">
+          <span className="bg-yellow-50 text-yellow-700 text-[10px] font-semibold px-3 py-1 rounded uppercase tracking-[0.2em] border border-yellow-200/80">
             Our Story
           </span>
 
-          <h1 className="text-5xl md:text-7xl font-bold mt-6 mb-8 leading-[1.1]">
+          <h1 className="text-3xl md:text-5xl font-bold mt-6 mb-6 leading-[1.15] text-gray-900">
             Elevating Brands to{" "}
-            <span className="text-yellow-500">New Heights.</span>
+            <span className="text-yellow-600">New Heights.</span>
           </h1>
 
-          <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+          <p className="text-gray-600 text-base leading-relaxed max-w-md">
             We are a team of visionaries, strategists, and creators dedicated to
             driving exponential growth through cutting-edge marketing
             technology.
@@ -113,10 +86,10 @@ const About = () => {
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-32 bg-gray-50">
         <div className="flex flex-col md:flex-row justify-between mb-16 gap-6">
           <div>
-            <span className="text-yellow-500 text-[10px] font-black uppercase tracking-[0.3em]">
+            <span className="text-yellow-600 text-[10px] font-semibold uppercase tracking-[0.3em]">
               Core Principles
             </span>
-            <h2 className="text-4xl font-bold mt-4">Our Mission & Values</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mt-4">Our Mission & Values</h2>
           </div>
 
           <p className="text-gray-600 max-w-xs text-sm leading-relaxed">
@@ -136,9 +109,9 @@ const About = () => {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="bg-white p-10 rounded-xl border border-gray-200 hover:border-yellow-400 hover:shadow-md transition-all"
+              className="bg-white p-10 rounded-xl border border-gray-200 hover:border-yellow-500/50 hover:shadow-md transition-all duration-300"
             >
-              <div className="w-10 h-10 bg-yellow-100 rounded flex items-center justify-center text-yellow-500 mb-8">
+              <div className="w-10 h-10 bg-yellow-100 rounded flex items-center justify-center text-yellow-600 mb-8">
                 <div className="w-4 h-4 border-2 border-current rounded-sm rotate-45"></div>
               </div>
 
@@ -153,63 +126,10 @@ const About = () => {
         </motion.div>
       </section>
 
-      {/* Timeline */}
-      <section className="max-w-5xl mx-auto px-6 py-32 relative">
-        <h2 className="text-center text-3xl font-bold mb-24">
-          The Journey to the Sky
-        </h2>
-
-        <div className="absolute left-1/2 top-48 bottom-32 w-[1px] bg-yellow-300 -translate-x-1/2 hidden md:block"></div>
-
-        <div className="space-y-24 relative">
-          {timelineData.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`flex flex-col md:flex-row items-center gap-8 ${
-                item.side === "right" ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              <div className="flex-1 text-center md:text-right px-4">
-                {item.side === "left" && (
-                  <>
-                    <span className="text-yellow-500 text-2xl font-black">
-                      {item.year}
-                    </span>
-                    <h4 className="text-xl font-bold mt-2">{item.title}</h4>
-                    <p className="text-gray-600 text-sm mt-2 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </>
-                )}
-              </div>
-
-              <div className="w-4 h-4 bg-yellow-400 rounded-full z-10 border-4 border-white shadow-lg"></div>
-
-              <div className="flex-1 text-center md:text-left px-4">
-                {item.side === "right" && (
-                  <>
-                    <span className="text-yellow-500 text-2xl font-black">
-                      {item.year}
-                    </span>
-                    <h4 className="text-xl font-bold mt-2">{item.title}</h4>
-                    <p className="text-gray-600 text-sm mt-2 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* Team Section */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-32 border-t border-gray-200">
         <div className="text-center mb-20">
-          <h2 className="text-4xl font-bold mb-4">Meet the Experts</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Meet the Experts</h2>
           <p className="text-gray-600 max-w-xl mx-auto leading-relaxed">
             Our team is composed of passionate professionals who live and
             breathe marketing strategy.
@@ -231,11 +151,11 @@ const About = () => {
                 />
               </div>
 
-              <h4 className="text-lg font-bold group-hover:text-yellow-500 transition-colors">
+              <h4 className="text-lg font-semibold group-hover:text-yellow-600 transition-colors">
                 {member.name}
               </h4>
 
-              <p className="text-yellow-600 text-[10px] font-black uppercase tracking-widest mt-1">
+              <p className="text-yellow-600 text-[10px] font-semibold uppercase tracking-widest mt-1">
                 {member.role}
               </p>
             </motion.div>
