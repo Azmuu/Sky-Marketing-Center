@@ -20,7 +20,7 @@ function WaveDivider({ className = "text-white" }) {
   );
 }
 
-function ImageSlideshow({ images, title, id }) {
+function ImageSlideshow({ images, title, id, embedded }) {
   const [index, setIndex] = useState(0);
   const n = images.length;
   useEffect(() => {
@@ -29,10 +29,10 @@ function ImageSlideshow({ images, title, id }) {
     return () => clearInterval(t);
   }, [n]);
   if (n === 0) return null;
-  return (
-    <section id={id} className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 py-10 sm:py-12 scroll-mt-20 md:scroll-mt-24 min-w-0">
+  const content = (
+    <>
       <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-6">{title}</h2>
-      <div className="relative aspect-video sm:aspect-[2/1] max-h-[320px] sm:max-h-[400px] rounded-xl overflow-hidden bg-gray-100">
+      <div className="relative aspect-video sm:aspect-[2/1] max-h-[280px] sm:max-h-[320px] rounded-xl overflow-hidden bg-gray-100">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={index}
@@ -81,6 +81,12 @@ function ImageSlideshow({ images, title, id }) {
           </>
         )}
       </div>
+    </>
+  );
+  if (embedded) return <div id={id} className="min-w-0 scroll-mt-20 md:scroll-mt-24">{content}</div>;
+  return (
+    <section id={id} className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 py-10 sm:py-12 scroll-mt-20 md:scroll-mt-24 min-w-0">
+      {content}
     </section>
   );
 }
@@ -233,7 +239,7 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {/* Right: ABOUT US heading, text, contact card with MAIL US button */}
+            {/* Right: ABOUT US – Profile, Mission, Vision, contact card */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -244,9 +250,27 @@ const Home = () => {
               <h2 className="text-xl md:text-3xl font-bold mt-2 mb-4 leading-tight text-gray-900">
                 We Can Help You Grow Your Business!
               </h2>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                We are a team of strategists and creators dedicated to driving growth through data-driven marketing. From brand identity to performance campaigns, we combine creativity with analytics so you stay ahead.
-              </p>
+
+              <div className="space-y-5 mb-6">
+                <div>
+                  <h3 className="text-gray-900 font-bold text-sm mb-1.5">Profile</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Sky Marketing Center is a modern marketing agency dedicated to helping businesses grow by reaching more customers, enhancing their brand presence, and increasing sales. We work with startups, small businesses, and large enterprises to deliver measurable results.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-gray-900 font-bold text-sm mb-1.5">Our mission</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Our mission is to empower businesses with innovative and results-driven marketing strategies that enhance brand visibility, drive engagement, and increase revenue. We strive to deliver creative, data-driven solutions that help businesses connect with their target audience and achieve sustainable growth.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-gray-900 font-bold text-sm mb-1.5">Our vision</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Our vision is to become a leading marketing agency recognized for transforming brands and driving business success. We aim to set new industry standards through innovation, excellence, and a commitment to helping businesses thrive in the digital era.
+                  </p>
+                </div>
+              </div>
 
               {/* Contact card – white, rounded, phone icon (circle yellow), text, number, MAIL US button on right */}
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 md:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -339,11 +363,6 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* ========== DOOR-TO-DOOR MARKETING ========== */}
-      <section className="bg-gray-50 py-6 sm:py-8">
-        <ImageSlideshow images={DOOR_TO_DOOR_IMGS} title="Door-to-Door Marketing" id="door-to-door" />
-      </section>
-
       <WaveDivider className="text-white" />
 
       {/* ========== OUR SERVICES ========== */}
@@ -390,9 +409,14 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ========== WORKSHOPS ========== */}
-      <section className="bg-white py-6 sm:py-8">
-        <ImageSlideshow images={WORKSHOP_IMGS} title="Workshops" id="workshops" />
+      {/* ========== WORKSHOPS (LEFT) & DOOR-TO-DOOR (RIGHT) ========== */}
+      <section className="bg-gray-50 py-10 sm:py-12 md:py-16 scroll-mt-20 md:scroll-mt-24">
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+            <ImageSlideshow images={WORKSHOP_IMGS} title="Workshops" id="workshops" embedded />
+            <ImageSlideshow images={DOOR_TO_DOOR_IMGS} title="Door-to-Door Marketing" id="door-to-door" embedded />
+          </div>
+        </div>
       </section>
 
       <WaveDivider className="text-gray-900" />

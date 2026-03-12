@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Portfolio = () => {
   const [filter, setFilter] = useState("All Projects");
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [slideIndex, setSlideIndex] = useState(0);
+  useEffect(() => {
+    if (!selectedProject) setSlideIndex(0);
+  }, [selectedProject]);
+  useEffect(() => {
+    if (!selectedProject) return;
+    const onEscape = (e) => { if (e.key === "Escape") setSelectedProject(null); };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [selectedProject]);
 
   const categories = [
     "All Projects",
     "Campaigns",
     "Consultancy",
     "Sky Skill Hub",
+    "Protocol",
   ];
 
   const marketingCentersPath = "/Markeeting Centers";
+  const protocolImages = [
+    `${marketingCentersPath}/portocol2.jpeg`,
+    `${marketingCentersPath}/portocol6.jpeg`,
+    `${marketingCentersPath}/potocol3.jpeg`,
+    `${marketingCentersPath}/potocol4.jpeg`,
+    `${marketingCentersPath}/potocol5.jpeg`,
+  ];
   const projects = [
     { id: 1, category: "Campaigns", tag: "CAMPAIGN", title: "Xamar Hospital – Pharmacy Marketing", result: "981 / 1,000 Pharmacies Reached", desc: "Door-to-door and business campaign. Target 1,000 pharmacies; total reached 981 pharmacies.", img: `${marketingCentersPath}/Xamar.jpeg` },
     { id: 2, category: "Campaigns", tag: "CAMPAIGN", title: "Turkish Hospital – Door to Door", result: "Door-to-Door Marketing", desc: "Hospital marketing door-to-door campaign.", img: `${marketingCentersPath}/Turkish.jpeg` },
@@ -20,6 +39,7 @@ const Portfolio = () => {
     { id: 5, category: "Campaigns", tag: "CAMPAIGN", title: "Somali Sudanese Campaign", result: "Door to Door at Business", desc: "Door-to-door campaign at business locations.", img: `${marketingCentersPath}/Somaali-Sudaanees.jpeg` },
     { id: 6, category: "Consultancy", tag: "CONSULTANCY", title: "Consultancy Services", result: "40+ Centers", desc: "Consultancy delivered to above 40 centers.", img: "/skyTeam1.jpeg" },
     { id: 7, category: "Sky Skill Hub", tag: "SKY SKILL HUB", title: "Workshops & Training", result: "3 Workshops · 20+ Seminars · 15+ Training", desc: "3 workshops, above 20 seminars, and above 15 training programs delivered.", img: "/workshops/1.jpeg" },
+    { id: 8, category: "Protocol", tag: "PROTOCOL", title: "Protocol", result: "Sky Protocol", desc: "The organization values transparency, innovation, and research-driven strategies to help businesses grow and achieve measurable results.\n\nThey prioritize client success by delivering high-quality services and building strong partnerships through teamwork and trust.", img: protocolImages[0], images: protocolImages },
   ];
 
   const filteredProjects = filter === "All Projects" ? projects : projects.filter((p) => p.category === filter);
@@ -43,6 +63,10 @@ const Portfolio = () => {
       title: "Sky Skill Hub",
       items: ["3 workshops", "Above 20 seminars", "Above 15 training"],
     },
+    {
+      title: "Protocol",
+      items: ["Protocol and professional coordination for events and partnerships"],
+    },
   ];
 
   return (
@@ -54,7 +78,7 @@ const Portfolio = () => {
             Proven Results for Global Brands
           </h2>
           <p className="text-gray-600 text-sm max-w-xl leading-relaxed">
-            Door-to-door campaigns, hospital & pharmacy marketing, consultancy, and Sky Skill Hub workshops & training.
+            Door-to-door campaigns, hospital & pharmacy marketing, consultancy, Sky Skill Hub workshops & training, and protocol services.
           </p>
         </motion.div>
       </section>
@@ -90,7 +114,11 @@ const Portfolio = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="bg-gray-50/80 rounded-xl border border-gray-100 overflow-hidden group hover:border-yellow-200 hover:shadow-md transition-all"
+                role="button"
+                tabIndex={0}
+                onClick={() => setSelectedProject(project)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedProject(project); } }}
+                className="bg-gray-50/80 rounded-xl border border-gray-100 overflow-hidden group hover:border-yellow-200 hover:shadow-lg transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
               >
                 <div className="aspect-video relative overflow-hidden">
                   <img
@@ -101,19 +129,122 @@ const Portfolio = () => {
                   <span className="absolute top-3 right-3 bg-yellow-500 text-gray-900 text-[9px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider">
                     {project.tag}
                   </span>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-xs font-semibold uppercase tracking-wider bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg">
+                      View details
+                    </span>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-yellow-600 transition-colors">
+                <div className="p-5 max-h-[180px] min-h-0 flex flex-col overflow-hidden">
+                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-yellow-600 transition-colors flex-shrink-0">
                     {project.title}
                   </h3>
-                  <p className="text-yellow-600 text-sm font-bold mt-1 mb-2">{project.result}</p>
-                  <p className="text-gray-600 text-xs leading-relaxed">{project.desc}</p>
+                  <p className="text-yellow-600 text-sm font-bold mt-1 mb-2 flex-shrink-0">{project.result}</p>
+                  <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain pr-1 -mr-1">
+                    <p className="text-gray-600 text-xs leading-relaxed whitespace-pre-line">{project.desc}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
       </section>
+
+      {/* Project detail modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 left-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-yellow-500 hover:text-gray-900 transition-colors"
+                aria-label="Close"
+              >
+                <span className="text-xl leading-none">×</span>
+              </button>
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
+                <div className="relative aspect-video bg-gray-100">
+                  {selectedProject.images && selectedProject.images.length > 0 ? (
+                    <>
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.img
+                          key={slideIndex}
+                          src={selectedProject.images[slideIndex]}
+                          alt={`${selectedProject.title} ${slideIndex + 1}`}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      </AnimatePresence>
+                      {selectedProject.images.length > 1 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); setSlideIndex((i) => (i - 1 + selectedProject.images.length) % selectedProject.images.length); }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-yellow-500 hover:text-gray-900 transition-colors z-[1]"
+                            aria-label="Previous"
+                          >
+                            <span className="text-lg leading-none">‹</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); setSlideIndex((i) => (i + 1) % selectedProject.images.length); }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-yellow-500 hover:text-gray-900 transition-colors z-[1]"
+                            aria-label="Next"
+                          >
+                            <span className="text-lg leading-none">›</span>
+                          </button>
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-[1]">
+                            {selectedProject.images.map((_, i) => (
+                              <button
+                                key={i}
+                                type="button"
+                                onClick={(e) => { e.stopPropagation(); setSlideIndex(i); }}
+                                className={`w-2 h-2 rounded-full transition-colors ${i === slideIndex ? "bg-yellow-500" : "bg-white/70"}`}
+                                aria-label={`Slide ${i + 1}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <img
+                      src={selectedProject.img}
+                      alt={selectedProject.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  <span className="absolute top-4 right-4 bg-yellow-500 text-gray-900 text-[10px] font-semibold px-2.5 py-1 rounded uppercase tracking-wider z-[1]">
+                    {selectedProject.tag}
+                  </span>
+                </div>
+                <div className="p-6 sm:p-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{selectedProject.title}</h2>
+                  <p className="text-yellow-600 font-semibold text-sm mb-4">{selectedProject.result}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">{selectedProject.desc}</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Our Work – Campaigns, Consultancy, Sky Skill Hub */}
       <section className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 pb-10 sm:pb-16 min-w-0">
