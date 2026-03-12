@@ -85,7 +85,16 @@ function ImageSlideshow({ images, title, id }) {
   );
 }
 
+const HOW_WE_WORK_VIDEO = "/videos/how-we-work.mp4.mp4";
+
 const Home = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+  useEffect(() => {
+    if (!videoOpen) return;
+    const onEscape = (e) => { if (e.key === "Escape") setVideoOpen(false); };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [videoOpen]);
   return (
     <div className="bg-white text-gray-900 font-sans selection:bg-yellow-200 selection:text-gray-900 min-h-screen w-full min-w-0 overflow-x-hidden">
       {/* ========== HERO ========== */}
@@ -194,10 +203,15 @@ const Home = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Play button – bottom left */}
-                <div className="absolute bottom-6 left-6 w-14 h-14 rounded-full bg-gray-900/80 border-2 border-yellow-500 flex items-center justify-center text-white cursor-pointer hover:bg-yellow-500 transition-colors">
+                {/* Play button – opens "How we work" video */}
+                <button
+                  type="button"
+                  onClick={() => setVideoOpen(true)}
+                  className="absolute bottom-6 left-6 w-14 h-14 rounded-full bg-gray-900/80 border-2 border-yellow-500 flex items-center justify-center text-white cursor-pointer hover:bg-yellow-500 transition-colors"
+                  aria-label="Play how we work video"
+                >
                   <Play className="w-6 h-6 ml-1" fill="currentColor" />
-                </div>
+                </button>
                 {/* Overlay card – top right (like "Luxury Room") */}
                 <div className="absolute top-6 right-6 bg-yellow-500 text-gray-900 rounded-xl shadow-lg p-4 max-w-[180px]">
                   <div className="flex items-center gap-2 mb-1">
@@ -254,6 +268,76 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* ========== HOW WE WORK (VIDEO) ========== */}
+      <section id="how-we-work" className="bg-white py-10 sm:py-12 md:py-16 scroll-mt-20 md:scroll-mt-24">
+        <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 md:px-8 min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-6"
+          >
+            <span className="text-yellow-600 text-[10px] font-semibold uppercase tracking-[0.2em]">How We Work</span>
+            <h2 className="text-xl md:text-3xl font-bold mt-2 mb-3 text-gray-900">See How We Get Results</h2>
+            <p className="text-gray-600 text-sm max-w-xl mx-auto">A short video on our process and how we deliver for our clients.</p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-2xl overflow-hidden shadow-xl bg-gray-100 aspect-video max-h-[400px]"
+          >
+            <video
+              className="w-full h-full object-contain"
+              src={HOW_WE_WORK_VIDEO}
+              poster="/skyTeam1.jpeg"
+              controls
+              playsInline
+              preload="metadata"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Video modal */}
+      <AnimatePresence>
+        {videoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+            onClick={() => setVideoOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-4xl aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <video
+                className="w-full h-full object-contain"
+                src={HOW_WE_WORK_VIDEO}
+                controls
+                autoPlay
+                playsInline
+              />
+              <button
+                type="button"
+                onClick={() => setVideoOpen(false)}
+                className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-yellow-500 hover:text-gray-900 transition-colors"
+                aria-label="Close"
+              >
+                <span className="text-xl leading-none">×</span>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ========== DOOR-TO-DOOR MARKETING ========== */}
       <section className="bg-gray-50 py-6 sm:py-8">
