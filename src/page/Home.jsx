@@ -92,7 +92,7 @@ const Home = () => {
       <header id="home" className="relative min-h-[70vh] sm:min-h-[75vh] flex flex-col scroll-mt-20 md:scroll-mt-24">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1920&auto=format&fit=crop"
+            src="skyTeam2.jpeg"
             alt="Sky Digital Marketing"
             className="w-full h-full object-cover"
           />
