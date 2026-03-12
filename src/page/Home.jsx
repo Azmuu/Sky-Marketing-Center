@@ -270,6 +270,17 @@ const Home = () => {
                     Our vision is to become a leading marketing agency recognized for transforming brands and driving business success. We aim to set new industry standards through innovation, excellence, and a commitment to helping businesses thrive in the digital era.
                   </p>
                 </div>
+                <div>
+                  <h3 className="text-gray-900 font-bold text-sm mb-1.5">Core Values</h3>
+                  <ul className="text-gray-600 text-sm leading-relaxed space-y-2 list-none pl-0">
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> We believe in transparency and honesty, building strong relationships based on trust and reliability.</li>
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> We continuously seek new ideas and creative strategies to help businesses achieve sustainable growth.</li>
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> Our strategies are based on research and analytics to ensure measurable and impactful results.</li>
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> Our clients' success is our priority! We work diligently to help them achieve their business goals.</li>
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> We are committed to delivering high-quality services that exceed expectations.</li>
+                    <li className="flex gap-2"><span className="text-yellow-500 shrink-0">•</span> We believe in teamwork and strong partnerships, working closely with our clients as their growth partners.</li>
+                  </ul>
+                </div>
               </div>
 
               {/* Contact card – white, rounded, phone icon (circle yellow), text, number, MAIL US button on right */}
